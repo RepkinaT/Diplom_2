@@ -65,3 +65,31 @@ class ReceivingOrdersHelper:
     def receiving_orders_requests(token=""):
         response = requests.get(f'{Address.url}{Address.get_user_orders}', headers={"Authorization": token})
         return response
+
+
+class Data:
+    @staticmethod
+    def get_random_email():
+        return f"my_email_{random.choice(['x', 'y', 'z'])}{random.randint(1, 10000)}@gmail.com"
+
+    @staticmethod
+    def get_random_password():
+        return random.choice(["Pass.1", "Pass.2", "Pass.3"])
+
+    @staticmethod
+    def get_random_name():
+        return random.choice(["Name_1", "Name_2", "Name_3"])
+
+    @staticmethod
+    def get_random_str():
+        return str(random.randint(1, 10000))
+
+    @classmethod
+    @allure.step('Получение рандомные данные')
+    def get_the_user_data(cls):
+        data = {
+            "email": cls.get_random_email(),
+            "password": cls.get_random_password(),
+            "name": cls.get_random_name()
+        }
+        return data

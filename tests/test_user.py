@@ -1,8 +1,7 @@
 import allure
 import pytest
 
-from data import Data
-from helpers import UserCreationHelper, UserAuthorizationHelper, UserChangeDataHelper
+from helpers import UserCreationHelper, UserAuthorizationHelper, UserChangeDataHelper, Data
 
 
 class TestUser:
@@ -30,7 +29,8 @@ class TestUser:
     @allure.title('Тест невозможности создания пользователя с незаполненным обязательным полем')
     @allure.description("Создаем запись пользователя заполняя не все обязательные поля "
                         "Должны получить в ответе код: 403 и значение 'success': False")
-    def test_create_user_without_required_data(self, get_the_user_data, missing_data):
+    def test_create_user_without_required_data(self, missing_data):
+        get_the_user_data = Data.get_the_user_data()
         del get_the_user_data[missing_data]
         response = UserCreationHelper.user_creation_request(missing_data)
         message = response.json().get('message')
